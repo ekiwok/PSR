@@ -1,0 +1,25 @@
+{
+    "name": "ekiwok/psr",
+    "description": "PHP Serializable Reflections - when you want to cache classes metadata",
+    "type": "library",
+    "require-dev": {
+        "phpunit/phpunit": "^7.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Ekiwok\\PCM\\": "src/",
+            "Ekiwok\\PCM\\tests\\": "tests/"
+        }
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Piotr Kowalczyk",
+            "email": "github@kowalczyk.codes"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "php" : "^7"
+    }
+}
