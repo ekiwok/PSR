@@ -8,8 +8,10 @@ use Ekiwok\PCM\ClassMetadataGenerator;
 use Ekiwok\PCM\ClassType;
 use Ekiwok\PCM\OptionalString;
 use Ekiwok\PCM\PropertyMetadata;
+use Ekiwok\PCM\tests\fixtures\EmptyInterface;
 use Ekiwok\PCM\tests\fixtures\FinalBar;
 use Ekiwok\PCM\tests\fixtures\Foo;
+use Ekiwok\PCM\tests\fixtures\FooTrait;
 use Ekiwok\PCM\Visibility;
 use PHPUnit\Framework\TestCase;
 
@@ -58,7 +60,7 @@ class DefaultClassMetadataGeneratorTest extends TestCase
                     $namespace = 'Ekiwok\PCM\tests\fixtures',
                     $isFinal = false,
                     $dockBlock = OptionalString::some("/**\n * Class Foo\n */"),
-                    new ClassType(ClassType::T_CLASS),
+                    $type = new ClassType(ClassType::T_CLASS),
                     $properties = [
                         'foo' => [new Visibility(Visibility::PRIVATE)]
                     ]
@@ -74,7 +76,29 @@ class DefaultClassMetadataGeneratorTest extends TestCase
                     new ClassType(ClassType::T_CLASS),
                     $properties = []
                 ]
-            ]
+            ],
+            'simple EmptyInterface with not methods and properties' => [
+                EmptyInterface::class,
+                [
+                    $name = 'EmptyInterface',
+                    $namespace = 'Ekiwok\PCM\tests\fixtures',
+                    $isFinal = false,
+                    $dockBlock = OptionalString::none(),
+                    $type = new ClassType(ClassType::T_INTERFACE),
+                    $properties = []
+                ]
+            ],
+            'simple FooTrait with single property' => [
+                FooTrait::class,
+                [
+                    $name = 'FooTrait',
+                    $namespace = 'Ekiwok\PCM\tests\fixtures',
+                    $isFinal = false,
+                    $dockBlock = OptionalString::none(),
+                    $type = new ClassType(ClassType::T_TRAIT),
+                    $properties = []
+                ]
+            ],
         ];
     }
 
