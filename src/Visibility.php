@@ -10,7 +10,7 @@ final class Visibility
     const PROTECTED = 'protected';
 
     /**
-     * @var $value
+     * @var string $value
      */
     private $value;
 

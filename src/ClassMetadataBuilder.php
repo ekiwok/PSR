@@ -11,5 +11,11 @@ interface ClassMetadataBuilder
 
     public function addProperty(PropertyMetadata $property);
 
+    public function setIsFinal(bool $isFinal);
+
+    public function setDockBlock(OptionalString $maybeDockBlock);
+
+    public function setType(ClassType $type);
+
     public function build(): ClassMetadata;
 }
