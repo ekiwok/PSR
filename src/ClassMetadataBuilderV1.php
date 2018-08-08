@@ -12,6 +12,11 @@ final class ClassMetadataBuilderV1 implements ClassMetadataBuilder
     const VERSION = '1';
 
     /**
+     * @var ImportsRegistryProvider
+     */
+    private $importsRegistryProvider;
+
+    /**
      * @var string
      */
     private $name;
@@ -41,8 +46,9 @@ final class ClassMetadataBuilderV1 implements ClassMetadataBuilder
      */
     private $propertiesMetadata = [];
 
-    private function __construct()
+    private function __construct(ImportsRegistryProvider $importsRegistryProvider)
     {
+        $this->importsRegistryProvider = $importsRegistryProvider;
     }
 
     private function __clone()
@@ -53,9 +59,9 @@ final class ClassMetadataBuilderV1 implements ClassMetadataBuilder
     {
     }
 
-    static public function create(): ClassMetadataBuilderV1
+    static public function create(ImportsRegistryProvider $importsRegistryProvider): ClassMetadataBuilderV1
     {
-        return new ClassMetadataBuilderV1();
+        return new ClassMetadataBuilderV1($importsRegistryProvider);
     }
 
     public function setNamespace(string $namespace)

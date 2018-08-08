@@ -22,7 +22,7 @@ abstract class ClassMetadataGenerator
                 switch ($version)
                 {
                     case ClassMetadataBuilderProvider::LATEST_VERSION:
-                        return ClassMetadataBuilderV1::create();
+                        return ClassMetadataBuilderV1::create(new TokenParsingImportsRegistryProvider());
 
                     default:
                         throw new \RuntimeException(sprintf("%s is not supported version.", $version));

@@ -96,7 +96,9 @@ class DefaultClassMetadataGeneratorTest extends TestCase
                     $isFinal = false,
                     $dockBlock = OptionalString::none(),
                     $type = new ClassType(ClassType::T_TRAIT),
-                    $properties = []
+                    $properties = [
+                        'foo' => [new Visibility(Visibility::PRIVATE)],
+                    ]
                 ]
             ],
         ];
@@ -116,14 +118,19 @@ class DefaultClassMetadataGeneratorTest extends TestCase
         $this->assertEquals($isFinal, $classMetadata->isFinal());
         $this->assertEquals($dockBlock, $classMetadata->getDockBlock());
         $this->assertEquals($type, $classMetadata->getType());
+        $this->assertEquals(count($properties), count($classMetadata->getPropertiesMetadata()));
+
         foreach ($properties as $name => list($visibility)) {
+
             $maybePropertyToAssert = array_filter(
                 $classMetadata->getPropertiesMetadata(),
                 function (PropertyMetadata $property) use ($name) {
                     return $property->getName() == $name;
                 });
+
             // property is expected to exist
             $this->assertEquals(1, count($maybePropertyToAssert));
+
             /** @var PropertyMetadata $property */
             list($property) = $maybePropertyToAssert;
             $this->assertEquals($visibility, $property->getVisibility());
