@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace Ekiwok\PCM;
 
+use Ekiwok\Option\OptionString;
+
 /**
  * @package Ekiwok\PCM
  * @internal
@@ -32,7 +34,7 @@ final class ClassMetadataBuilderV1 implements ClassMetadataBuilder
     private $type;
 
     /**
-     * @var OptionalString
+     * @var string|null
      */
     private $maybeDockBlock;
 
@@ -89,7 +91,7 @@ final class ClassMetadataBuilderV1 implements ClassMetadataBuilder
         $this->type = $type;
     }
 
-    public function setDockBlock(OptionalString $maybeDockBlock)
+    public function setDockBlock(string $maybeDockBlock = null)
     {
         $this->maybeDockBlock = $maybeDockBlock;
     }
@@ -121,7 +123,7 @@ final class ClassMetadataBuilderV1 implements ClassMetadataBuilder
             private $isFinal;
 
             /**
-             * @var OptionalString
+             * @var string|null
              */
             private $maybeDockBlock;
 
@@ -140,7 +142,7 @@ final class ClassMetadataBuilderV1 implements ClassMetadataBuilder
                 string $namespace,
                 bool $isFinal,
                 ClassType $type,
-                OptionalString $maybeDockBlock,
+                string $maybeDockBlock = null,
                 PropertyMetadata ...$propertiesMetadata
             ) {
                 $this->name = $name;
@@ -185,9 +187,9 @@ final class ClassMetadataBuilderV1 implements ClassMetadataBuilder
                 return $this->isFinal;
             }
 
-            public function getDockBlock(): OptionalString
+            public function getDockBlock(): OptionString
             {
-                return $this->maybeDockBlock;
+                return OptionString::of($this->maybeDockBlock);
             }
 
             public function getType(): ClassType

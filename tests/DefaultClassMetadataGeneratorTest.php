@@ -6,7 +6,6 @@ namespace Ekiwok\PCM\tests;
 use Ekiwok\PCM\ClassMetadata;
 use Ekiwok\PCM\ClassMetadataGenerator;
 use Ekiwok\PCM\ClassType;
-use Ekiwok\PCM\OptionalString;
 use Ekiwok\PCM\PropertyMetadata;
 use Ekiwok\PCM\tests\fixtures\EmptyInterface;
 use Ekiwok\PCM\tests\fixtures\FinalBar;
@@ -59,7 +58,7 @@ class DefaultClassMetadataGeneratorTest extends TestCase
                     $name = 'Foo',
                     $namespace = 'Ekiwok\PCM\tests\fixtures',
                     $isFinal = false,
-                    $dockBlock = OptionalString::some("/**\n * Class Foo\n */"),
+                    $dockBlock = "/**\n * Class Foo\n */",
                     $type = new ClassType(ClassType::T_CLASS),
                     $properties = [
                         'foo' => [new Visibility(Visibility::PRIVATE)]
@@ -72,7 +71,7 @@ class DefaultClassMetadataGeneratorTest extends TestCase
                     $name = 'FinalBar',
                     $namespace = 'Ekiwok\PCM\tests\fixtures',
                     $isFinal = true,
-                    $dockBlock = OptionalString::none(),
+                    $dockBlock = null,
                     new ClassType(ClassType::T_CLASS),
                     $properties = []
                 ]
@@ -83,7 +82,7 @@ class DefaultClassMetadataGeneratorTest extends TestCase
                     $name = 'EmptyInterface',
                     $namespace = 'Ekiwok\PCM\tests\fixtures',
                     $isFinal = false,
-                    $dockBlock = OptionalString::none(),
+                    $dockBlock = null,
                     $type = new ClassType(ClassType::T_INTERFACE),
                     $properties = []
                 ]
@@ -94,7 +93,7 @@ class DefaultClassMetadataGeneratorTest extends TestCase
                     $name = 'FooTrait',
                     $namespace = 'Ekiwok\PCM\tests\fixtures',
                     $isFinal = false,
-                    $dockBlock = OptionalString::none(),
+                    $dockBlock = null,
                     $type = new ClassType(ClassType::T_TRAIT),
                     $properties = [
                         'foo' => [new Visibility(Visibility::PRIVATE)],
@@ -109,14 +108,14 @@ class DefaultClassMetadataGeneratorTest extends TestCase
         string $name,
         string $namespace,
         bool $isFinal,
-        OptionalString $dockBlock,
+        string $dockBlock = null,
         ClassType $type,
         array $properties = []
     ) {
         $this->assertEquals($name, $classMetadata->getName());
         $this->assertEquals($namespace, $classMetadata->getNamespace());
         $this->assertEquals($isFinal, $classMetadata->isFinal());
-        $this->assertEquals($dockBlock, $classMetadata->getDockBlock());
+        $this->assertEquals($dockBlock, $classMetadata->getDockBlock()->isPresent() ? $classMetadata->getDockBlock()->get() : null);
         $this->assertEquals($type, $classMetadata->getType());
         $this->assertEquals(count($properties), count($classMetadata->getPropertiesMetadata()));
 

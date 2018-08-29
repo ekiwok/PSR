@@ -13,7 +13,7 @@ interface ClassMetadataBuilder
 
     public function setIsFinal(bool $isFinal);
 
-    public function setDockBlock(OptionalString $maybeDockBlock);
+    public function setDockBlock(string $maybeDockBlock = null);
 
     public function setType(ClassType $type);
 

@@ -5,6 +5,9 @@ namespace Ekiwok\PCM;
 
 use Ekiwok\PCM\Registry\ImportsRegistry;
 
+/**
+ * @internal
+ */
 class TokenParsingImportsRegistryProvider implements ImportsRegistryProvider
 {
     public function generate(string $filePath, string $className, string $namespace): ImportsRegistry

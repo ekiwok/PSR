@@ -35,7 +35,7 @@ final class DefaultClassMetadataGenerator extends ClassMetadataGenerator
         $builder->setName($reflection->getShortName());
         $builder->setNamespace($reflection->getNamespaceName());
         $builder->setIsFinal($reflection->isFinal());
-        $builder->setDockBlock($docComment === false ? OptionalString::none() : OptionalString::some($docComment));
+        $builder->setDockBlock($docComment !== false ? $docComment : null);
         $builder->setType(ClassType::from($reflection));
 
         foreach ($reflection->getProperties() as $reflectionProperty) {
