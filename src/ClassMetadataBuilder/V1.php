@@ -1,15 +1,20 @@
 <?php
 declare(strict_types=1);
 
-namespace Ekiwok\PCM;
+namespace Ekiwok\PCM\ClassMetadataBuilder;
 
 use Ekiwok\Option\OptionString;
+use Ekiwok\PCM\ClassMetadata;
+use Ekiwok\PCM\ClassMetadataBuilder;
+use Ekiwok\PCM\ClassType;
+use Ekiwok\PCM\ImportsRegistryProvider;
+use Ekiwok\PCM\PropertyMetadata;
 
 /**
  * @package Ekiwok\PCM
  * @internal
  */
-final class ClassMetadataBuilderV1 implements ClassMetadataBuilder
+final class V1 implements ClassMetadataBuilder
 {
     const VERSION = '1';
 
@@ -61,9 +66,9 @@ final class ClassMetadataBuilderV1 implements ClassMetadataBuilder
     {
     }
 
-    static public function create(ImportsRegistryProvider $importsRegistryProvider): ClassMetadataBuilderV1
+    static public function create(ImportsRegistryProvider $importsRegistryProvider): V1
     {
-        return new ClassMetadataBuilderV1($importsRegistryProvider);
+        return new V1($importsRegistryProvider);
     }
 
     public function setNamespace(string $namespace)

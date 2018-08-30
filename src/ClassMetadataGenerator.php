@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace Ekiwok\PCM;
 
+use Ekiwok\PCM\ClassMetadataBuilder\V1;
+
 /**
  * @package Ekiwok\PCM
  */
@@ -22,7 +24,7 @@ abstract class ClassMetadataGenerator
                 switch ($version)
                 {
                     case ClassMetadataBuilderProvider::LATEST_VERSION:
-                        return ClassMetadataBuilderV1::create(new TokenParsingImportsRegistryProvider());
+                        return V1::create(new TokenParsingImportsRegistryProvider());
 
                     default:
                         throw new \RuntimeException(sprintf("%s is not supported version.", $version));

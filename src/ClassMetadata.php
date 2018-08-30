@@ -3,7 +3,9 @@ declare(strict_types=1);
 
 namespace Ekiwok\PCM;
 
-interface ClassMetadata extends \JsonSerializable, MaybeHavingDockBlock
+use Ekiwok\Option\OptionString;
+
+interface ClassMetadata extends \JsonSerializable
 {
     public function getType(): ClassType;
 
@@ -12,6 +14,8 @@ interface ClassMetadata extends \JsonSerializable, MaybeHavingDockBlock
     public function getNamespace(): string;
 
     public function isFinal(): bool;
+
+    public function getDockBlock(): OptionString;
 
     /**
      * @return PropertyMetadata[]

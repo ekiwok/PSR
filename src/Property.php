@@ -2,6 +2,7 @@
 declare(strict_types=1);
 
 namespace Ekiwok\PCM;
+use Ekiwok\Option\OptionString;
 
 /**
  * @package Ekiwok\PCM
@@ -19,10 +20,16 @@ final class Property implements PropertyMetadata
      */
     private $name;
 
-    public function __construct(Visibility $visibility, string $name)
+    /**
+     * @var OptionString
+     */
+    private $dockBlock;
+
+    public function __construct(Visibility $visibility, string $name, string $dockBlock = null)
     {
         $this->visibility = $visibility;
         $this->name = $name;
+        $this->dockBlock = OptionString::of($dockBlock);
     }
 
     /**
@@ -46,19 +53,25 @@ final class Property implements PropertyMetadata
      */
     static public function from(\ReflectionProperty $reflectionProperty): PropertyMetadata
     {
+        $dockBlock = $reflectionProperty->getDocComment() ?: null;
         switch (true)
         {
             case $reflectionProperty->isPrivate():
-                return new self(new Visibility(Visibility::PRIVATE), $reflectionProperty->name);
+                return new self(new Visibility(Visibility::PRIVATE), $reflectionProperty->name, $dockBlock);
 
             case $reflectionProperty->isProtected():
-                return new self(new Visibility(Visibility::PROTECTED), $reflectionProperty->name);
+                return new self(new Visibility(Visibility::PROTECTED), $reflectionProperty->name, $dockBlock);
 
             case $reflectionProperty->isPublic():
-                return new self(new Visibility(Visibility::PUBLIC), $reflectionProperty->name);
+                return new self(new Visibility(Visibility::PUBLIC), $reflectionProperty->name, $dockBlock);
 
             default:
                 throw new \RuntimeException(sprintf('Unexpected property not public/private/protected'));
         }
+    }
+
+    public function getDockBlock(): OptionString
+    {
+        // TODO: Implement getDockBlock() method.
     }
 }

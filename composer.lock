@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "3e5b2e6e09d40546617241e1b9ceab7c",
+    "content-hash": "7199edf71c69ce5b57dc812c29da5587",
     "packages": [
         {
             "name": "ekiwok/option",
-            "version": "0.10.0",
+            "version": "0.11.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ekiwok/PHPOption.git",
-                "reference": "f5a0ecdbe7da9bb6b2fc9aba384d5e1a6ae3b00b"
+                "reference": "cc0eb4a6052e5648b949b6b865a7dabaf7bed35c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ekiwok/PHPOption/zipball/f5a0ecdbe7da9bb6b2fc9aba384d5e1a6ae3b00b",
-                "reference": "f5a0ecdbe7da9bb6b2fc9aba384d5e1a6ae3b00b",
+                "url": "https://api.github.com/repos/ekiwok/PHPOption/zipball/cc0eb4a6052e5648b949b6b865a7dabaf7bed35c",
+                "reference": "cc0eb4a6052e5648b949b6b865a7dabaf7bed35c",
                 "shasum": ""
             },
             "require-dev": {
@@ -44,7 +44,7 @@
                 }
             ],
             "description": "PHP Option implementations for all scalars. Possible to register custom Option.",
-            "time": "2018-08-29T19:02:10+00:00"
+            "time": "2018-08-30T18:43:48+00:00"
         }
     ],
     "packages-dev": [
