@@ -1,0 +1,12 @@
+# For debugging
+version: '2'
+
+services:
+
+  php:
+    build: ./docker
+    working_dir: /usr/app
+    env_file:
+      - .env
+    volumes:
+      - .:/usr/app
