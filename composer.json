@@ -7,7 +7,7 @@
         "ekiwok/option": "^0.11.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "^7.2"
+        "phpunit/phpunit": "^6.5"
     },
     "autoload": {
         "psr-4": {
