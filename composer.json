@@ -22,5 +22,10 @@
             "email": "github@kowalczyk.codes"
         }
     ],
-        "minimum-stability": "stable"
+    "config": {
+        "platform": {
+            "php": "7.0.30"
+        }
+    },
+    "minimum-stability": "stable"
 }
