@@ -72,6 +72,6 @@ final class Property implements PropertyMetadata
 
     public function getDockBlock(): OptionString
     {
-        // TODO: Implement getDockBlock() method.
+        return $this->dockBlock;
     }
 }

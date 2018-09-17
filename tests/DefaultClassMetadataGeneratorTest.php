@@ -6,6 +6,7 @@ namespace Ekiwok\PCM\tests;
 use Ekiwok\PCM\ClassMetadata;
 use Ekiwok\PCM\ClassMetadataGenerator;
 use Ekiwok\PCM\ClassType;
+use Ekiwok\PCM\Property;
 use Ekiwok\PCM\PropertyMetadata;
 use Ekiwok\PCM\tests\fixtures\EmptyInterface;
 use Ekiwok\PCM\tests\fixtures\FinalBar;
@@ -61,7 +62,7 @@ class DefaultClassMetadataGeneratorTest extends TestCase
                     $dockBlock = "/**\n * Class Foo\n */",
                     $type = new ClassType(ClassType::T_CLASS),
                     $properties = [
-                        'foo' => [new Visibility(Visibility::PRIVATE)]
+                        'foo' => [new Visibility(Visibility::PRIVATE), null]
                     ]
                 ]
             ],
@@ -73,7 +74,9 @@ class DefaultClassMetadataGeneratorTest extends TestCase
                     $isFinal = true,
                     $dockBlock = null,
                     new ClassType(ClassType::T_CLASS),
-                    $properties = []
+                    $properties = [
+                        'test' => [new Visibility(Visibility::PROTECTED), '/** Comment */']
+                    ]
                 ]
             ],
             'simple EmptyInterface with not methods and properties' => [
@@ -96,7 +99,7 @@ class DefaultClassMetadataGeneratorTest extends TestCase
                     $dockBlock = null,
                     $type = new ClassType(ClassType::T_TRAIT),
                     $properties = [
-                        'foo' => [new Visibility(Visibility::PRIVATE)],
+                        'foo' => [new Visibility(Visibility::PRIVATE), null],
                     ]
                 ]
             ],
@@ -119,7 +122,7 @@ class DefaultClassMetadataGeneratorTest extends TestCase
         $this->assertEquals($type, $classMetadata->getType());
         $this->assertEquals(count($properties), count($classMetadata->getPropertiesMetadata()));
 
-        foreach ($properties as $name => list($visibility)) {
+        foreach ($properties as $name => list($visibility, $dockBlock)) {
 
             $maybePropertyToAssert = array_filter(
                 $classMetadata->getPropertiesMetadata(),
@@ -131,8 +134,12 @@ class DefaultClassMetadataGeneratorTest extends TestCase
             $this->assertEquals(1, count($maybePropertyToAssert));
 
             /** @var PropertyMetadata $property */
-            list($property) = $maybePropertyToAssert;
-            $this->assertEquals($visibility, $property->getVisibility());
+            $property = reset($maybePropertyToAssert);
+
+            $this->assertEquals(
+                new Property($visibility, $name, $dockBlock),
+                $property
+            );
         }
     }
 }

@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "f4a9355c59b0228f2a23e0c5e694d5c9",
+    "content-hash": "e8469361f7cb58f0382008fa1d1767a8",
     "packages": [
         {
             "name": "ekiwok/option",
-            "version": "0.11.3",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ekiwok/PHPOption.git",
-                "reference": "4b5599165f3099d6fe55f17057c2e68d56392e39"
+                "reference": "c174878bd194fd9dd9848650577565b82b057479"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ekiwok/PHPOption/zipball/4b5599165f3099d6fe55f17057c2e68d56392e39",
-                "reference": "4b5599165f3099d6fe55f17057c2e68d56392e39",
+                "url": "https://api.github.com/repos/ekiwok/PHPOption/zipball/c174878bd194fd9dd9848650577565b82b057479",
+                "reference": "c174878bd194fd9dd9848650577565b82b057479",
                 "shasum": ""
             },
             "require-dev": {
@@ -28,10 +28,7 @@
                 "psr-4": {
                     "Ekiwok\\Option\\": "src",
                     "Ekiwok\\Option\\Test\\": "tests"
-                },
-                "files": [
-                    "src/functions.php"
-                ]
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -44,7 +41,7 @@
                 }
             ],
             "description": "PHP Option implementations for all scalars. Possible to register custom Option.",
-            "time": "2018-08-31T20:49:17+00:00"
+            "time": "2018-09-16T21:31:45+00:00"
         }
     ],
     "packages-dev": [
@@ -715,16 +712,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "6.5.12",
+            "version": "6.5.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "24da433d7384824d65ea93fbb462e2f31bbb494e"
+                "reference": "0973426fb012359b2f18d3bd1e90ef1172839693"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/24da433d7384824d65ea93fbb462e2f31bbb494e",
-                "reference": "24da433d7384824d65ea93fbb462e2f31bbb494e",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/0973426fb012359b2f18d3bd1e90ef1172839693",
+                "reference": "0973426fb012359b2f18d3bd1e90ef1172839693",
                 "shasum": ""
             },
             "require": {
@@ -795,7 +792,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2018-08-22T06:32:48+00:00"
+            "time": "2018-09-08T15:10:43+00:00"
         },
         {
             "name": "phpunit/phpunit-mock-objects",

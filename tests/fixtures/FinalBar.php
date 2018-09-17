@@ -5,4 +5,6 @@ namespace Ekiwok\PCM\tests\fixtures;
 
 final class FinalBar extends Foo
 {
+    /** Comment */
+    static protected $test;
 }
