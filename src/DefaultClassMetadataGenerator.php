@@ -15,11 +15,19 @@ final class DefaultClassMetadataGenerator extends ClassMetadataGenerator
     private $classMetadataBuilderProvider;
 
     /**
+     * @var ImportsRegistryProvider
+     */
+    private $importsRegistryProvider;
+
+    /**
      * @param ClassMetadataBuilderProvider $classMetadataBuilderProvider
      */
-    public function __construct(ClassMetadataBuilderProvider $classMetadataBuilderProvider)
-    {
+    public function __construct(
+        ClassMetadataBuilderProvider $classMetadataBuilderProvider,
+        ImportsRegistryProvider $importsRegistryProvider
+    ) {
         $this->classMetadataBuilderProvider = $classMetadataBuilderProvider;
+        $this->importsRegistryProvider = $importsRegistryProvider;
     }
 
     /**
@@ -37,6 +45,11 @@ final class DefaultClassMetadataGenerator extends ClassMetadataGenerator
         $builder->setIsFinal($reflection->isFinal());
         $builder->setDockBlock($docComment !== false ? $docComment : null);
         $builder->setType(ClassType::from($reflection));
+        $builder->setImports($this->importsRegistryProvider->generate(
+            $reflection->getFileName(),
+            $reflection->getName(),
+            $reflection->getNamespaceName()
+        ));
 
         foreach ($reflection->getProperties() as $reflectionProperty) {
             $builder->addProperty(Property::from($reflectionProperty));

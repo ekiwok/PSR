@@ -9,6 +9,7 @@ use Ekiwok\PCM\ClassMetadataBuilder;
 use Ekiwok\PCM\ClassType;
 use Ekiwok\PCM\ImportsRegistryProvider;
 use Ekiwok\PCM\PropertyMetadata;
+use Ekiwok\PCM\Registry\ImportsRegistry;
 
 /**
  * @package Ekiwok\PCM
@@ -17,11 +18,6 @@ use Ekiwok\PCM\PropertyMetadata;
 final class V1 implements ClassMetadataBuilder
 {
     const VERSION = '1';
-
-    /**
-     * @var ImportsRegistryProvider
-     */
-    private $importsRegistryProvider;
 
     /**
      * @var string
@@ -49,13 +45,17 @@ final class V1 implements ClassMetadataBuilder
     private $isFinal;
 
     /**
+     * @var ImportsRegistry
+     */
+    private $importsRegistry;
+
+    /**
      * @var PropertyMetadata[]
      */
     private $propertiesMetadata = [];
 
-    private function __construct(ImportsRegistryProvider $importsRegistryProvider)
+    private function __construct()
     {
-        $this->importsRegistryProvider = $importsRegistryProvider;
     }
 
     private function __clone()
@@ -66,9 +66,9 @@ final class V1 implements ClassMetadataBuilder
     {
     }
 
-    static public function create(ImportsRegistryProvider $importsRegistryProvider): V1
+    static public function create(): V1
     {
-        return new V1($importsRegistryProvider);
+        return new V1();
     }
 
     public function setNamespace(string $namespace)
@@ -101,6 +101,11 @@ final class V1 implements ClassMetadataBuilder
         $this->maybeDockBlock = $maybeDockBlock;
     }
 
+    public function setImports(ImportsRegistry $importsRegistry)
+    {
+        $this->importsRegistry = $importsRegistry;
+    }
+
     public function build(): ClassMetadata
     {
         return new class(
@@ -109,6 +114,7 @@ final class V1 implements ClassMetadataBuilder
             $this->isFinal,
             $this->type,
             $this->maybeDockBlock,
+            $this->importsRegistry,
             ...$this->propertiesMetadata
         ) implements ClassMetadata {
 
@@ -138,6 +144,11 @@ final class V1 implements ClassMetadataBuilder
             private $type;
 
             /**
+             * @var ImportsRegistry
+             */
+            private $imports;
+
+            /**
              * @var PropertyMetadata[]
              */
             private $propertiesMetadata;
@@ -148,6 +159,7 @@ final class V1 implements ClassMetadataBuilder
                 bool $isFinal,
                 ClassType $type,
                 string $maybeDockBlock = null,
+                ImportsRegistry $imports,
                 PropertyMetadata ...$propertiesMetadata
             ) {
                 $this->name = $name;
@@ -155,6 +167,7 @@ final class V1 implements ClassMetadataBuilder
                 $this->isFinal = $isFinal;
                 $this->maybeDockBlock = $maybeDockBlock;
                 $this->type = $type;
+                $this->imports = $imports;
                 $this->propertiesMetadata = $propertiesMetadata;
             }
 
@@ -200,6 +213,11 @@ final class V1 implements ClassMetadataBuilder
             public function getType(): ClassType
             {
                 return $this->type;
+            }
+
+            public function getImports(): ImportsRegistry
+            {
+                return $this->imports;
             }
         };
     }

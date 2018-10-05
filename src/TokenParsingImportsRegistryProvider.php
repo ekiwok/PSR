@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Ekiwok\PCM;
 
+use Ekiwok\Option\OptionArray;
 use Ekiwok\PCM\Registry\ImportsRegistry;
 
 /**
@@ -18,7 +19,11 @@ class TokenParsingImportsRegistryProvider implements ImportsRegistryProvider
         $imports = [];
         $this->forwardToNextUse($tokens);
         do {
-            $import = implode('', $this->stripUse($tokens));
+            $maybeUseStatemenTokens = $this->stripUse($tokens);
+            if (!$maybeUseStatemenTokens->isPresent()) {
+                continue;
+            }
+            $import = implode('', $maybeUseStatemenTokens->get());
             $shortName = (new \ReflectionClass($import))->getShortName();
             $imports[$shortName] = $import;
             $this->forwardToNextUse($tokens);
@@ -95,16 +100,9 @@ class TokenParsingImportsRegistryProvider implements ImportsRegistryProvider
                 array_shift($tokens);
                 return $this->forwardToNextUse($tokens);
         }
-
-        if (reset($head) === T_USE) {
-            return;
-        }
-
-        array_shift($tokens);
-        return $this->forwardToNextUse($tokens);
     }
 
-    public function stripUse(array &$tokens, array &$imports = []): array
+    public function stripUse(array &$tokens, array &$imports = []): OptionArray
     {
         $head = reset($tokens);
         $tokenCode = is_array($head) ? reset($head) : $head;
@@ -112,7 +110,7 @@ class TokenParsingImportsRegistryProvider implements ImportsRegistryProvider
         switch ($tokenCode)
         {
             case ';':
-                return $imports;
+                return OptionArray::of($imports);
 
             case T_NS_SEPARATOR:
             case T_STRING:
@@ -121,7 +119,9 @@ class TokenParsingImportsRegistryProvider implements ImportsRegistryProvider
 
             default:
                 array_shift($tokens);
-                return $this->stripUse($tokens, $imports);
+                return empty($tokens)
+                    ? OptionArray::of(null)
+                    : OptionArray::of($this->stripUse($tokens, $imports)->orElse([]));
         }
     }
 }

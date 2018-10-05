@@ -8,5 +8,10 @@ services:
     working_dir: /usr/app
     env_file:
       - .env
+    environment:
+      - XDEBUG_HOST=${XDEBUG_HOST}
+      - XDEBUG_PORT=${XDEBUG_PORT}
+      - PHP_IDE_CONFIG=${PHP_IDE_CONFIG}
+      - XDEBUG_IDEKEY=${XDEBUG_IDEKEY}
     volumes:
       - .:/usr/app

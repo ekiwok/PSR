@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace Ekiwok\PCM;
 
+use Ekiwok\PCM\Registry\ImportsRegistry;
+
 interface ClassMetadataBuilder
 {
     public function setNamespace(string $namespace);
@@ -18,4 +20,6 @@ interface ClassMetadataBuilder
     public function setType(ClassType $type);
 
     public function build(): ClassMetadata;
+
+    public function setImports(ImportsRegistry $importsRegistry);
 }

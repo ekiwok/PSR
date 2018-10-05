@@ -24,12 +24,12 @@ abstract class ClassMetadataGenerator
                 switch ($version)
                 {
                     case ClassMetadataBuilderProvider::LATEST_VERSION:
-                        return V1::create(new TokenParsingImportsRegistryProvider());
+                        return V1::create();
 
                     default:
                         throw new \RuntimeException(sprintf("%s is not supported version.", $version));
                 }
             }
-        });
+        }, new TokenParsingImportsRegistryProvider());
     }
 }
